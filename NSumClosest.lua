@@ -64,7 +64,7 @@ end
 --// Accurately finds closest items
 NSumClosestLib.NSumClosest = function(arr, n, target)
     local foundSum = false
-    local closestSum = 1e12
+    local closestSum = math.huge
     local res = {}
     
     -- Sort the table from lowest to highest
