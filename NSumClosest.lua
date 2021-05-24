@@ -68,7 +68,7 @@ NSumClosestLib.NSumClosest = function(arr, n, target)
     local res = {}
     
     -- Sort the table from lowest to highest
-    table.sort(arr)
+    --table.sort(arr)
     
     -- Select the last n items from the array and see if the sum of those surpasses target
     local minValue = 0
