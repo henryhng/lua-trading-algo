@@ -193,5 +193,37 @@ NSumClosestLib.NSumClosest = function(arr, n, target)
     end
 end
 
+--// Uses greedy algorithm
+NSumClosestLib.QuickNSumClosest = function(arr, n, target)
+    if arr[1]["rolimonsValue"] > target then
+        return {Success = false}
+    end
+    local res = {}
+    local CurrentSum = 0
+    local Adds = 0
+
+    for i = #arr, 1, -1 do
+        local itemInfo = arr[i]
+        local Number = itemInfo["rolimonsValue"]
+        if (CurrentSum + Number <= target) then
+            CurrentSum += Number
+
+            Adds += 1
+            
+            table.insert(res, itemInfo)
+
+            if (Adds == n) then
+                break
+            end
+        end
+    end
+    
+    if Adds == 0 then
+        return {Success = false}
+    end
+
+    return {Result = CurrentSum, MadeWith = res, Success = true}
+end
+
 
 return NSumClosestLib
