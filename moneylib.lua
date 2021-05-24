@@ -105,5 +105,54 @@ MoneyLib.Suffixes[100] = "NNo"
 MoneyLib.Suffixes[101] = "C"
 MoneyLib.Suffixes[102] = "CU"
 MoneyLib.Suffixes[103] = "Infinity"                                            
-
+MoneyLib.CachedShorts = {}
+MoneyLib.ShortToLong = function(MoneyShort)
+	if MoneyLib.CachedShorts[MoneyShort] ~= nil then
+		return MoneyLib.CachedShorts[MoneyShort]
+	end
+	local result
+	local eCutoff = string.find(MoneyShort,"e%+")
+	if eCutoff ~= nil then
+		local Coeff = tonumber(string.sub(tostring(MoneyShort),1,1))
+		local Zeros = tonumber(string.sub(tostring(MoneyShort),eCutoff+2))
+		result = Coeff * 10^Zeros
+	else	
+		for i,v in pairs(MoneyLib.Suffixes) do
+			local Cutoff = string.find(MoneyShort,v)
+			print(string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1),v)
+			if Cutoff ~= nil and string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1) == v then
+				local Moneh = string.sub(MoneyShort,1,string.len(MoneyShort)-string.len(v))
+				local Answer = tonumber(Moneh) * 10^(3*i)
+				result = Answer
+			end
+		end
+	end
+	MoneyLib.CachedShorts[MoneyShort] = result
+	return result
+end                                              
+MoneyLib.CachedShorts = {}
+MoneyLib.ShortToLong = function(MoneyShort)
+	if MoneyLib.CachedShorts[MoneyShort] ~= nil then
+		return MoneyLib.CachedShorts[MoneyShort]
+	end
+	local result
+	local eCutoff = string.find(MoneyShort,"e%+")
+	if eCutoff ~= nil then
+		local Coeff = tonumber(string.sub(tostring(MoneyShort),1,1))
+		local Zeros = tonumber(string.sub(tostring(MoneyShort),eCutoff+2))
+		result = Coeff * 10^Zeros
+	else	
+		for i,v in pairs(MoneyLib.Suffixes) do
+			local Cutoff = string.find(MoneyShort,v)
+			print(string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1),v)
+			if Cutoff ~= nil and string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1) == v then
+				local Moneh = string.sub(MoneyShort,1,string.len(MoneyShort)-string.len(v))
+				local Answer = tonumber(Moneh) * 10^(3*i)
+				result = Answer
+			end
+		end
+	end
+	MoneyLib.CachedShorts[MoneyShort] = result
+	return result
+end
 return MoneyLib
