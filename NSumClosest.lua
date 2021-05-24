@@ -56,7 +56,7 @@ local function getSum(arr, indexes)
     local res = {}
     for position, index in ipairs(indexes) do
         sum = sum + arr[index]["rolimonsValue"]
-        table.insert(res, arr[index])
+        res[position] = arr[index]
     end
     return sum, res
 end
