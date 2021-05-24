@@ -225,5 +225,36 @@ NSumClosestLib.QuickNSumClosest = function(arr, n, target)
     return {Result = CurrentSum, MadeWith = res, Success = true}
 end
 
-
 return NSumClosestLib
+
+--[[
+local sol = NSumClosestLib.QuickNSumClosest(
+    {
+        [1] = {
+            ["rolimonsValue"] = 2278,
+            ["name"] = "Yours Truly"
+        },
+        [2] = {
+            ["rolimonsValue"] = 6969,
+            ["name"] = "My Everything"
+        },
+        [3] = {
+            ["rolimonsValue"] = 42042,
+            ["name"] = "Dangerous Woman"
+        },
+        [4] = {
+            ["rolimonsValue"] = 100000,
+            ["name"] = "Sweetener"
+        }
+    },
+3, 100000)
+
+if sol.Success then
+    local result = ""
+    for _, info in pairs(sol.MadeWith) do
+        result = result .. info["name"] .. " = ".. info["rolimonsValue"] .. ", "
+    end
+    print("Solution: " .. sol.Result .. " (" .. result .. ")")
+else
+    print("No valid solution")
+end]]
