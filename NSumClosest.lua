@@ -218,7 +218,7 @@ NSumClosestLib.QuickNSumClosest = function(arr, n, target)
         end
     end
     
-    if Adds < n then
+    if Adds ~= n then
         return {Success = false}
     end
 
