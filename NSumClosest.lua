@@ -51,7 +51,7 @@ end
 
 --// Calculate sum
 local function getSum(arr, indexes)
-    print("sum inputs")
+    --print("sum inputs")
     local sum = 0
     local res = {}
     for position, index in ipairs(indexes) do
