@@ -1,6 +1,6 @@
 --// CREDITS FOR MONEY LIB !
 local MoneyLib = {}
-    print("money table")
+    --print("money table")
 MoneyLib.Suffixes = {}
 MoneyLib.Suffixes[1] = "K"
 MoneyLib.Suffixes[2] = "M"
