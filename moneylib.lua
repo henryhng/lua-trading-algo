@@ -119,7 +119,7 @@ MoneyLib.ShortToLong = function(MoneyShort)
 	else	
 		for i,v in pairs(MoneyLib.Suffixes) do
 			local Cutoff = string.find(MoneyShort,v)
-			print(string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1),v)
+		--	print(string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1),v)
 			if Cutoff ~= nil and string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1) == v then
 				local Moneh = string.sub(MoneyShort,1,string.len(MoneyShort)-string.len(v))
 				local Answer = tonumber(Moneh) * 10^(3*i)
@@ -144,7 +144,7 @@ MoneyLib.ShortToLong = function(MoneyShort)
 	else	
 		for i,v in pairs(MoneyLib.Suffixes) do
 			local Cutoff = string.find(MoneyShort,v)
-			print(string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1),v)
+		--	print(string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1),v)
 			if Cutoff ~= nil and string.sub(MoneyShort,string.len(MoneyShort)-string.len(v)+1) == v then
 				local Moneh = string.sub(MoneyShort,1,string.len(MoneyShort)-string.len(v))
 				local Answer = tonumber(Moneh) * 10^(3*i)
