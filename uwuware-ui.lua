@@ -31,7 +31,7 @@ local whitelistedMouseinputs = { --add or remove mouse inputs if you find the ne
 
 --Functions
 local function round(num, bracket)
-    print("rounding")
+    --print("rounding")
 	bracket = bracket or 1
 	local a = math.floor(num/bracket + (math.sign(num) * 0.5)) * bracket
 	if a < 0 then
