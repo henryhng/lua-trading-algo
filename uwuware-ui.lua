@@ -217,7 +217,7 @@ local function createLabel(option, parent)
 end
 
 function createToggle(option, parent)
-    print("toggle state")
+    --print("toggle state")
 	local main = library:Create("TextLabel", {
 		LayoutOrder = option.position,
 		Size = UDim2.new(1, 0, 0, 31),
