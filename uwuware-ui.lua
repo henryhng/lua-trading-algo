@@ -326,5 +326,64 @@ function createToggle(option, parent)
 	end})
 end
 
+function createButton(option, parent)
+	local main = library:Create("TextLabel", {
+		ZIndex = 2,
+		LayoutOrder = option.position,
+		Size = UDim2.new(1, 0, 0, 34),
+		BackgroundTransparency = 1,
+		Text = " " .. option.text,
+		TextSize = 15,
+		Font = Enum.Font.Gotham,
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+		Parent = parent.content
+	})
+	
+	local round = library:Create("ImageLabel", {
+		AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.new(0.5, 0, 0.5, 0),
+		Size = UDim2.new(1, -12, 1, -10),
+		BackgroundTransparency = 1,
+		Image = "rbxassetid://3570695787",
+		ImageColor3 = Color3.fromRGB(149, 86, 191),
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(100, 100, 100, 100),
+		SliceScale = 0.02,
+		Parent = main
+	})
+	
+	local inContact
+	local clicking
+	main.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			library.flags[option.flag] = true
+			clicking = true
+			tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(159, 104, 196)}):Play()
+			option.callback()
+		end
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = true
+			tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(159, 104, 196)}):Play()
+		end
+	end)
+	
+	main.InputEnded:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			clicking = false
+			if inContact then
+				tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(149, 86, 191)}):Play()
+			else
+				tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(149, 86, 191)}):Play()
+			end
+		end
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = false
+			if not clicking then
+				tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(149, 86, 191)}):Play()
+			end
+		end
+	end)
+end
+
 
 return library
