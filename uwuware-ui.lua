@@ -316,7 +316,7 @@ function createToggle(option, parent)
 	end
 
 	if option.state then
-		delay(0.1, function() option.callback(true) end)
+		delay(0.5, function() option.callback(true) end)
 	end
 	
 	setmetatable(option, {__newindex = function(t, i, v)
