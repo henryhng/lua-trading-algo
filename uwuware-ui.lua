@@ -196,5 +196,25 @@ local function createOptionHolder(holderTitle, parent, parentTable, subHolder)
 	return parentTable
 end
 	
+local function createLabel(option, parent)
+	local main = library:Create("TextLabel", {
+		LayoutOrder = option.position,
+		Size = UDim2.new(1, 0, 0, 26),
+		BackgroundTransparency = 1,
+		Text = " " .. option.text,
+		TextSize = 15,
+		Font = Enum.Font.Gotham,
+		TextColor3 = Color3.fromRGB(149, 86, 191),
+		TextXAlignment = Enum.TextXAlignment.Center,
+		Parent = parent.content
+	})
+	
+	setmetatable(option, {__newindex = function(t, i, v)
+		if i == "Text" then
+			main.Text = " " .. tostring(v)
+		end
+	end})
+end
+
 
 return library
