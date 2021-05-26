@@ -909,5 +909,110 @@ local function createList(option, parent, holder)
 	return option
 end
 
+local function createBox(option, parent)
+    print("text input")
+	local main = library:Create("Frame", {
+		LayoutOrder = option.position,
+		Size = UDim2.new(1, 0, 0, 40),
+		BackgroundTransparency = 1,
+		Parent = parent.content
+	})
+	
+	local outline = library:Create("ImageLabel", {
+		Position = UDim2.new(0, 6, 0, 4),
+		Size = UDim2.new(1, -12, 1, -10),
+		BackgroundTransparency = 1,
+		Image = "rbxassetid://3570695787",
+		ImageColor3 = Color3.fromRGB(60, 60, 60),
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(100, 100, 100, 100),
+		SliceScale = 0.02,
+		Parent = main
+	})
+	
+	local round = library:Create("ImageLabel", {
+		Position = UDim2.new(0, 8, 0, 6),
+		Size = UDim2.new(1, -16, 1, -14),
+		BackgroundTransparency = 1,
+		Image = "rbxassetid://3570695787",
+		ImageColor3 = Color3.fromRGB(20, 20, 20),
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(100, 100, 100, 100),
+		SliceScale = 0.01,
+		Parent = main
+	})
+	
+	local title = library:Create("TextLabel", {
+		Position = UDim2.new(0, 12, 0, 8),
+		Size = UDim2.new(1, -24, 0, 14),
+		BackgroundTransparency = 1,
+		Text = option.text,
+		TextSize = 14,
+		Font = Enum.Font.GothamBold,
+		TextColor3 = Color3.fromRGB(100, 100, 100),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		Parent = main
+	})
+	
+	local inputvalue = library:Create("TextBox", {
+		Position = UDim2.new(0, 12, 0, 20),
+		Size = UDim2.new(1, -24, 0, 24),
+		BackgroundTransparency = 1,
+		Text = option.value,
+		TextSize = 18,
+		Font = Enum.Font.Gotham,
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		TextWrapped = true,
+		Parent = main
+	})
+	
+	local inContact
+	local focused
+	main.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			if not focused then inputvalue:CaptureFocus() end
+		end
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = true
+			if not focused then
+				tweenService:Create(outline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(100, 100, 100)}):Play()
+			end
+		end
+	end)
+	
+	main.InputEnded:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = false
+			if not focused then
+				tweenService:Create(outline, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+			end
+		end
+	end)
+	
+	inputvalue.Focused:connect(function()
+		focused = true
+		tweenService:Create(outline, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(149, 86, 191)}):Play()
+	end)
+	
+	inputvalue.FocusLost:connect(function(enter)
+		focused = false
+		tweenService:Create(outline, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+		option:SetValue(inputvalue.Text, enter)
+	end)
+	
+	function option:SetValue(value, enter)
+		library.flags[self.flag] = tostring(value)
+		self.value = tostring(value)
+		inputvalue.Text = self.value
+		self.callback(value, enter)
+	end
+
+    function option:UpdateValue()
+		self:SetValue(option.value)
+	end
+end
+
+if not syn then syn = {} end
 
 return library
