@@ -910,7 +910,7 @@ local function createList(option, parent, holder)
 end
 
 local function createBox(option, parent)
-    print("text input")
+    --print("text input")
 	local main = library:Create("Frame", {
 		LayoutOrder = option.position,
 		Size = UDim2.new(1, 0, 0, 52),
