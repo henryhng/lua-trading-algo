@@ -899,11 +899,11 @@ local function createList(option, parent, holder)
 			end
 		end
 		wait(0.3)
-		delay(0.3, function()
+		--delay(0.3, function()
 			if not self.open then
 				self.mainHolder.Visible = false
 			end
-		end)
+		--end)
 	end
 
 	return option
