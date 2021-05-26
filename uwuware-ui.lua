@@ -385,5 +385,136 @@ function createButton(option, parent)
 	end)
 end
 
+local function createBind(option, parent)
+	local binding
+	local holding
+	local loop
+	local text = string.match(option.key, "Mouse") and string.sub(option.key, 1, 5) .. string.sub(option.key, 12, 13) or option.key
+
+	local main = library:Create("TextLabel", {
+		LayoutOrder = option.position,
+		Size = UDim2.new(1, 0, 0, 33),
+		BackgroundTransparency = 1,
+		Text = " " .. option.text,
+		TextSize = 15,
+		Font = Enum.Font.Gotham,
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+		TextXAlignment = Enum.TextXAlignment.Left,
+		Parent = parent.content
+	})
+	
+	local round = library:Create("ImageLabel", {
+		Position = UDim2.new(1, -6, 0, 4),
+		Size = UDim2.new(0, -textService:GetTextSize(text, 16, Enum.Font.Gotham, Vector2.new(9e9, 9e9)).X - 16, 1, -10),
+		SizeConstraint = Enum.SizeConstraint.RelativeYY,
+		BackgroundTransparency = 1,
+		Image = "rbxassetid://3570695787",
+		ImageColor3 = Color3.fromRGB(40, 40, 40),
+		ScaleType = Enum.ScaleType.Slice,
+		SliceCenter = Rect.new(100, 100, 100, 100),
+		SliceScale = 0.02,
+		Parent = main
+	})
+	
+	local bindinput = library:Create("TextLabel", {
+		Size = UDim2.new(1, 0, 1, 0),
+		BackgroundTransparency = 1,
+		Text = text,
+		TextSize = 15,
+		Font = Enum.Font.Gotham,
+		TextColor3 = Color3.fromRGB(255, 255, 255),
+		Parent = round
+	})
+	
+	local inContact
+	main.InputBegan:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = true
+			if not binding then
+				tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(60, 60, 60)}):Play()
+			end
+		end
+	end)
+	 
+	main.InputEnded:connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			binding = true
+			bindinput.Text = "..."
+			tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(255, 65, 65)}):Play()
+		end
+		if input.UserInputType == Enum.UserInputType.MouseMovement then
+			inContact = false
+			if not binding then
+				tweenService:Create(round, TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = Color3.fromRGB(40, 40, 40)}):Play()
+			end
+		end
+	end)
+	
+	inputService.InputBegan:connect(function(input)
+		if inputService:GetFocusedTextBox() then return end
+		if (input.KeyCode.Name == option.key or input.UserInputType.Name == option.key) and not binding then
+			if option.hold then
+				loop = runService.Heartbeat:connect(function()
+					if binding then
+						option.callback(true)
+						loop:Disconnect()
+						loop = nil
+					else
+						option.callback()
+					end
+				end)
+			else
+				option.callback()
+			end
+		elseif binding then
+			local key
+			pcall(function()
+				if not keyCheck(input.KeyCode, blacklistedKeys) then
+					key = input.KeyCode
+				end
+			end)
+			pcall(function()
+				if keyCheck(input.UserInputType, whitelistedMouseinputs) and not key then
+					key = input.UserInputType
+				end
+			end)
+			key = key or option.key
+			option:SetKey(key)
+		end
+	end)
+	
+	inputService.InputEnded:connect(function(input)
+		if input.KeyCode.Name == option.key or input.UserInputType.Name == option.key or input.UserInputType.Name == "MouseMovement" then
+			if loop then
+				loop:Disconnect()
+				loop = nil
+				option.callback(true)
+			end
+		end
+	end)
+	
+	function option:SetKey(key)
+		binding = false
+		if loop then
+			loop:Disconnect()
+			loop = nil
+		end
+		self.key = key or self.key
+		self.key = self.key.Name or self.key
+		library.flags[self.flag] = self.key
+		if string.match(self.key, "Mouse") then
+			bindinput.Text = string.sub(self.key, 1, 5) .. string.sub(self.key, 12, 13)
+		else
+			bindinput.Text = self.key
+		end
+		tweenService:Create(round, TweenInfo.new(0.2, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {ImageColor3 = inContact and Color3.fromRGB(60, 60, 60) or Color3.fromRGB(40, 40, 40)}):Play()
+		round.Size = UDim2.new(0, -textService:GetTextSize(bindinput.Text, 15, Enum.Font.Gotham, Vector2.new(9e9, 9e9)).X - 16, 1, -10)	
+	end
+
+    function option:UpdateKey()
+		self:SetKey(option.key)
+	end
+end
+
 
 return library
