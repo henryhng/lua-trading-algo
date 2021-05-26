@@ -520,7 +520,7 @@ local function createSlider(option, parent)
     print("slider value")
 	local main = library:Create("Frame", {
 		LayoutOrder = option.position,
-		Size = UDim2.new(1, 0, 0, 46),
+		Size = UDim2.new(1, 0, 0, 50),
 		BackgroundTransparency = 1,
 		Parent = parent.content
 	})
