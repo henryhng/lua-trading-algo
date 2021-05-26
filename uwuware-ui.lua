@@ -913,7 +913,7 @@ local function createBox(option, parent)
     print("text input")
 	local main = library:Create("Frame", {
 		LayoutOrder = option.position,
-		Size = UDim2.new(1, 0, 0, 48),
+		Size = UDim2.new(1, 0, 0, 52),
 		BackgroundTransparency = 1,
 		Parent = parent.content
 	})
