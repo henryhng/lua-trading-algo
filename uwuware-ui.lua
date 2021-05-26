@@ -1031,7 +1031,7 @@ end
 local function createColorPickerWindow(option)
 	option.mainHolder = library:Create("ImageButton", {
 		ZIndex = 3,
-		Size = UDim2.new(0, 200, 0, 150),
+		Size = UDim2.new(0, 220, 0, 170),
 		BackgroundTransparency = 1,
 		Image = "rbxassetid://3570695787",
 		ImageTransparency = 1,
