@@ -517,7 +517,7 @@ local function createBind(option, parent)
 end
 
 local function createSlider(option, parent)
-    print("slider value")
+    --print("slider value")
 	local main = library:Create("Frame", {
 		LayoutOrder = option.position,
 		Size = UDim2.new(1, 0, 0, 50),
