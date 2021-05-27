@@ -1376,7 +1376,7 @@ local function createColorPickerWindow(option)
 end
 
 local function createColor(option, parent, holder)
-    print("color value")
+    --print("color value")
 	option.main = library:Create("TextLabel", {
 		LayoutOrder = option.position,
 		Size = UDim2.new(1, 0, 0, 31),
