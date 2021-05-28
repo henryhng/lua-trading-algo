@@ -109,3 +109,18 @@ local caseNames = {}; do
     end
 end
 
+local lowestCaseToAutoBuy = caseNames[1]
+local highestCaseToAutoBuy = caseNames[#caseNames]
+local maxPrice = 10000
+local jackpotTier = 1
+local minJackpotChance = 95
+local waitTime = .9
+local quicksearch = false
+local minAutomarketSell = 50000
+local maxAutomarketSell = 9e9
+local percentToMarketSell = 104/100
+local maxPercentOfValueToBid = 70/100
+local autoAuctionWaitTime = .9
+
+local buyingCase = false
+
