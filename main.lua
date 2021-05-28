@@ -43,3 +43,36 @@ local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 local List = LocalPlayer.PlayerGui.Gui.Frames.Inventory.SubInventory.Holder.List
 
+local ClickRemote; do 
+    local Clicker = LocalPlayer.PlayerGui.Gui.Hotbar.Clicker.Button
+    if Clicker.Visible then
+        for i,v in pairs(getconnections(Clicker.MouseButton1Click)) do
+            ClickRemote = debug.getupvalue(v.Function,1)
+        end
+    end
+end
+
+local UpgradeClickRemote; local InventoryActionsRemote; local GamesActionsRemote; do 
+    for i,v in pairs(getgc()) do 
+        if type(v) == "function" and islclosure(v) and getfenv(v).script == game:GetService("Players").LocalPlayer.PlayerGui.Gui.GuiModules.Store then 
+            local x = debug.getconstants(v)
+            if table.find(x, "Upgrade") then
+                UpgradeClickRemote = debug.getupvalue(v,1)
+            end
+
+        elseif type(v) == "function" and islclosure(v) and getfenv(v).script == LocalPlayer.PlayerGui.Gui.GuiModules.Inventory and not first then 
+            local x = debug.getconstants(v)
+            if table.find(x, "Equip") then
+                InventoryActionsRemote = debug.getupvalue(v,2)
+                first = true
+            end
+
+        elseif type(v) == "function" and islclosure(v) and getfenv(v).script == LocalPlayer.PlayerGui.AuctionBoard.Handler then 
+            local x = debug.getconstants(v)
+            if table.find(x, "AuctionBid") then
+                GamesActionsRemote = debug.getupvalue(v,2)
+            end
+        end
+    end
+end
+
