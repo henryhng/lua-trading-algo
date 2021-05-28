@@ -195,7 +195,11 @@ local function updateCurrentItems()
     items = {}
     for i,v in pairs(List:GetChildren()) do
         if v:IsA("Frame") then
-            items[v.Name] = (items[v.Name] or 0) + 1
+            if not items[v.Name] then
+                items[v.Name] = 1
+            else
+                items[v.Name] = items[v.Name] + 1
+            end
         end
     end
 end
