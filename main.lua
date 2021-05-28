@@ -33,3 +33,13 @@ StarterGui:SetCore("SendNotification", {
 	Button2 = "No"
 })
 
+local InfoModule = require(game.ReplicatedStorage.Modules.Info)
+local MainFunctions = require(game:GetService("Players").LocalPlayer.PlayerGui.Gui.GuiModules.MainFunctions)
+local inv = require(game:GetService("Players").LocalPlayer.PlayerGui.Gui.GuiModules.Inventory)
+local AuctionFunctions = require(game:GetService("Players").LocalPlayer.PlayerGui.AuctionBoard.AuctionFunctions)
+
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local List = LocalPlayer.PlayerGui.Gui.Frames.Inventory.SubInventory.Holder.List
+
