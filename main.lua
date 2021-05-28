@@ -169,3 +169,23 @@ local function marketSellItem(itemName, amount, value)
     end)
 end
 
+local function getItemPrice(name, rolimonsVal)
+    if rolimonsVal == "rolimonsValue" then
+        return InfoModule:ReturnItemFromModule(name).rolimonsValue
+    elseif rolimonsVal == "recentAveragePrice" then
+        return InfoModule:ReturnItemFromModule(name).recentAveragePrice
+    end
+end
+
+local function isValidItem(name, maxprice)
+    local RAP = getItemPrice(name, "recentAveragePrice")
+    local value = getItemPrice(name, "rolimonsValue")
+    print(automarketplace, value >= minAutomarketSell, value <= maxAutomarketSell)
+    if automarketplace and (value >= minAutomarketSell and value <= maxAutomarketSell) then
+        return true, "marketsell", value * percentToMarketSell
+    elseif (autosell and RAP <= maxPrice) and (not pureraponly or RAP == value) then
+        return true, "sell"
+    end
+    return false
+end
+
