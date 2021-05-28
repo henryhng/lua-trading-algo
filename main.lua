@@ -11,7 +11,7 @@ local function sendNotification(titleText, descText)
         Title = titleText;
         Text = descText;
         Icon = "";
-        Duration = 3;
+        Duration = 5;
     })
 end
 
