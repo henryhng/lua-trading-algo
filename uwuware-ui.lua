@@ -1653,5 +1653,42 @@ local function getFnctions(parent)
 	end
 end
 
+function library:CreateWindow(title)
+	local window = {title = tostring(title), options = {}, open = true, canInit = true, init = false, position = #self.windows}
+	getFnctions(window)
+	
+	table.insert(library.windows, window)
+	
+	return window
+end
+
+local UIToggle
+local UnlockMouse
+function library:Init()
+	
+	self.base = self.base or self:Create("ScreenGui")
+	if get_hidden_gui then
+		get_hidden_gui(self.base)
+	elseif hiddenUI then
+		hiddenUI(self.base)
+	elseif syn and syn.protect_gui then
+		syn.protect_gui(self.base)
+	else
+		game:GetService"Players".LocalPlayer:Kick("Error: protect_gui function not found")
+		return
+	end
+	self.base.Name = "PPHAX"
+	self.base.Parent = game:GetService"CoreGui"
+	
+	for _, window in next, self.windows do
+		if window.canInit and not window.init then
+			window.init = true
+			createOptionHolder(window.title, self.base, window)
+			loadOptions(window)
+		end
+	end
+	return self.base
+end
+
 
 return library
