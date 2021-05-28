@@ -124,3 +124,20 @@ local autoAuctionWaitTime = .9
 
 local buyingCase = false
 
+local function removeAllFromMarketPlace()
+    for _, frame in pairs(LocalPlayer.PlayerGui.Gui.Frames.Market.SubMarket.Holder.List:GetChildren()) do
+        if frame:IsA("Frame") and frame.Name == LocalPlayer.Name then
+            local itemName = frame:WaitForChild("ItemName").Text
+            spawn(function()
+                local args = {
+                    [1] = "Marketplace",
+                    [2] = itemName
+                }
+
+                InventoryActionsRemote:InvokeServer(unpack(args))
+            end)
+        end
+    end
+    marketItemsLPInfo = {}
+end
+
