@@ -6,7 +6,7 @@ local StarterGui = game:GetService("StarterGui")
 local bindable = Instance.new("BindableFunction")
 
 local function sendNotification(titleText, descText)
-    print("notification")
+    --print("notification")
     StarterGui:SetCore("SendNotification",{
         Title = titleText;
         Text = descText;
