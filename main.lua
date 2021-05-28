@@ -189,3 +189,15 @@ local function isValidItem(name, maxprice)
     return false
 end
 
+local items = {}
+local function updateCurrentItems()
+    print("inventory scan")
+    items = {}
+    for i,v in pairs(List:GetChildren()) do
+        if v:IsA("Frame") then
+            items[v.Name] = 1
+        end
+    end
+end
+updateCurrentItems()
+
