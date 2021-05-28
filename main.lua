@@ -76,3 +76,17 @@ local UpgradeClickRemote; local InventoryActionsRemote; local GamesActionsRemote
     end
 end
 
+local OpenCaseRemote; do 
+    local OpenCaseButton = game:GetService("Players").LocalPlayer.PlayerGui.Gui.Frames.Cases.Main.Display.Open
+    if OpenCaseButton.Visible then
+        for i,v in pairs(getconnections(OpenCaseButton.MouseButton1Click)) do
+            OpenCaseRemote = debug.getupvalue(v.Function, 3)
+        end
+    end
+end
+
+        --      ["properties"] = {
+        --          ["Price"]
+        --      }
+        --   }
+
