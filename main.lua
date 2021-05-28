@@ -111,7 +111,7 @@ end
 
 local lowestCaseToAutoBuy = caseNames[1]
 local highestCaseToAutoBuy = caseNames[#caseNames]
-local maxPrice = 25000
+local maxPrice = 50000
 local jackpotTier = 1
 local minJackpotChance = 95
 local waitTime = .9
