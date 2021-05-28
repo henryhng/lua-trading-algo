@@ -90,3 +90,22 @@ end
         --      }
         --   }
 
+local caseTypes = {}; do
+    for caseName, caseInfo in pairs(InfoModule.Cases) do
+     -- InfoModule:returnCaseBounds("name") to get bounds
+        if caseInfo["Currency"] == "Robux" then
+            caseTypes[caseName] = caseInfo
+        end 
+    end
+end
+
+local caseNames = {}; do
+    for _, caseInfo in ipairs(MainFunctions:ReturnSortedDictionary(caseTypes, "Price", true)) do
+        caseTypes[caseInfo.name] = caseInfo
+
+        local price = caseInfo.properties.Price
+        local name = caseInfo.name
+        table.insert(caseNames, string.format("%s ($%d)", name, price))
+    end
+end
+
