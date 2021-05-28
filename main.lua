@@ -141,3 +141,31 @@ local function removeAllFromMarketPlace()
     marketItemsLPInfo = {}
 end
 
+local function sellItem(itemName, amount)
+    spawn(function()
+	pcall(function()
+       		List[itemName]:Destroy()
+	end)
+        local args = {
+            [1] = "QuickSell",
+            [2] = itemName,
+            [3] = amount
+        }
+        InventoryActionsRemote:InvokeServer(unpack(args))
+    end)
+end
+
+local function marketSellItem(itemName, amount, value)
+    print(value)
+    spawn(function()
+        local args = {
+            [1] = "Marketplace",
+            [2] = itemName,
+            [3] = value,
+            [4] = amount
+        }
+
+        InventoryActionsRemote:InvokeServer(unpack(args))
+    end)
+end
+
