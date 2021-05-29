@@ -243,3 +243,27 @@ local function convertRobux(num)
     return tonumber(longValue) or tonumber(shortValue) 
 end
 
+local function getHighestValueBuyableCase()
+    print("case prices")
+    local currentRobux = convertRobux(LocalPlayer.PlayerGui.Gui.Hotbar.Stats.Robux.Amount.Text)
+    local buyableCases = {}
+    for caseName, caseInfo in pairs(caseTypes) do
+        local price = caseInfo.properties.Price
+        local minPriceOfCaseToBuy = tonumber(string.match(lowestCaseToAutoBuy, "$(%d*)"))
+        local maxPriceOfCaseToBuy = tonumber(string.match(highestCaseToAutoBuy, "$(%d*)"))
+        if currentRobux >= price then
+            buyableCases[caseName] = price
+        end
+    end
+
+    local highestnumber = 0
+    local targetCaseName
+    for caseName, price in pairs(buyableCases) do
+        if price > highestnumber then
+            targetCaseName = caseName
+            highestnumber = price
+        end
+    end
+    return targetCaseName
+end
+
