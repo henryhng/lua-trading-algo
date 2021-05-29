@@ -267,3 +267,44 @@ local function getHighestValueBuyableCase()
     return targetCaseName
 end
 
+local Countdown = LocalPlayer.PlayerGui.Gui.Frames.Jackpot.SubJackpot.Countdown
+local jackpotLPInfo = {
+    [1] = {
+        ["total"] = 0,
+        ["itemsAlreadyIn"] = 0
+    },
+    [2] = {
+        ["total"] = 0,
+        ["itemsAlreadyIn"] = 0
+    },
+    [3] = {
+        ["total"] = 0,
+        ["itemsAlreadyIn"] = 0
+    }
+}
+
+local function resetJackpotLPInfo()
+    for _, tier in ipairs(jackpotLPInfo) do
+        for index, value in pairs(tier) do
+            tier[index] = 0
+        end
+    end
+end
+
+Countdown:GetPropertyChangedSignal("Text"):Connect(function()
+    local countdownText = Countdown.Text
+    local resetted = (string.match(countdownText:lower(), "win") == "win" or string.match(countdownText:lower(), "won") == "won")
+    if resetted then
+        resetJackpotLPInfo()
+        print("reset")
+    end
+end)
+
+ReplicatedStorage:WaitForChild("Events"):WaitForChild("DataSend").OnClientEvent:Connect(function(signature, name, value, tier)
+    if signature == "JackpotItem" and name == LocalPlayer.Name then
+        jackpotLPInfo[tier]["total"] += value
+        jackpotLPInfo[tier]["itemsAlreadyIn"] += 1
+        print("total now:", jackpotLPInfo[tier]["total"], "itemsAlreadyIn now:", jackpotLPInfo[tier]["itemsAlreadyIn"])
+    end
+end)
+
