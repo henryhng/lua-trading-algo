@@ -191,7 +191,7 @@ end
 
 local items = {}
 local function updateCurrentItems()
-    print("inventory scan")
+    --print("inventory scan")
     items = {}
     for i,v in pairs(List:GetChildren()) do
         if v:IsA("Frame") then
