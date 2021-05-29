@@ -244,7 +244,7 @@ local function convertRobux(num)
 end
 
 local function getHighestValueBuyableCase()
-    print("case prices")
+    --print("case prices")
     local currentRobux = convertRobux(LocalPlayer.PlayerGui.Gui.Hotbar.Stats.Robux.Amount.Text)
     local buyableCases = {}
     for caseName, caseInfo in pairs(caseTypes) do
