@@ -240,6 +240,6 @@ local NSumClosestLib = loadstring(readfile('NSumClosest.lua'))()
 local function convertRobux(num)
     local shortValue = num
     local longValue = MoneyLib.ShortToLong(shortValue)
-    return tonumber(longValue) 
+    return tonumber(longValue) or tonumber(shortValue) 
 end
 
