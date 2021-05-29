@@ -251,7 +251,7 @@ local function getHighestValueBuyableCase()
         local price = caseInfo.properties.Price
         local minPriceOfCaseToBuy = tonumber(string.match(lowestCaseToAutoBuy, "$(%d*)"))
         local maxPriceOfCaseToBuy = tonumber(string.match(highestCaseToAutoBuy, "$(%d*)"))
-        if currentRobux >= price and price <= maxPriceOfCaseToBuy then
+        if currentRobux >= price and price <= maxPriceOfCaseToBuy and price >= minPriceOfCaseToBuy then
             buyableCases[caseName] = price
         end
     end
