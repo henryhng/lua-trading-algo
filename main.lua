@@ -205,3 +205,30 @@ local function updateCurrentItems()
 end
 updateCurrentItems()
 
+local function sellCurrentItems()
+    updateCurrentItems()
+    for itemName, amount in pairs(items) do
+        local valid, sellType, value = isValidItem(itemName, maxPrice)
+        if valid then
+            if sellType == "sell" then
+                sellItem(itemName, amount)
+            elseif sellType == "marketsell" then
+                marketSellItem(itemName, amount, value)
+            end
+        end
+    end
+end
+
+List.ChildAdded:Connect(function(item)
+    if item:IsA("Frame") then
+        local valid, sellType, value = isValidItem(item.Name, maxPrice)
+        if valid then
+            if sellType == "sell" then
+                sellItem(item.Name, amount)
+            elseif sellType == "marketsell" then
+                marketSellItem(item.Name, amount, value)
+            end
+        end
+    end
+end)
+
