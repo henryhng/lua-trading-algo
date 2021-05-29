@@ -232,3 +232,14 @@ List.ChildAdded:Connect(function(item)
     end
 end)
 
+-- Keep the library files in the executor's workspace for local loading.
+local MoneyLib = loadstring(readfile('moneylib.lua'))()
+
+local NSumClosestLib = loadstring(readfile('NSumClosest.lua'))()
+
+local function convertRobux(num)
+    local shortValue = num
+    local longValue = MoneyLib.ShortToLong(shortValue)
+    return longValue 
+end
+
