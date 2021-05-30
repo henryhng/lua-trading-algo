@@ -427,7 +427,7 @@ local auctionHeader = auctionBoard.Header
 local auctionBidders = auctionBoard.Bidders
 
 local function bidAuction(num)
-    print("auction bid")
+    --print("auction bid")
     local args = {
         [1] = "AuctionBid",
         [2] = num
