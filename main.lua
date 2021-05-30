@@ -421,3 +421,29 @@ Countdown:GetPropertyChangedSignal("Text"):Connect(function()
     end
 end)
 
+local auctionBoard = LocalPlayer.PlayerGui.AuctionBoard
+local auctionCountdown = auctionBoard.Status
+local auctionHeader = auctionBoard.Header
+local auctionBidders = auctionBoard.Bidders
+
+local function bidAuction(num)
+    print("auction bid")
+    local args = {
+        [1] = "AuctionBid",
+        [2] = num
+    }
+    GamesActionsRemote:InvokeServer(unpack(args))
+end
+
+--// Get top bidder
+local function getTopAuctionBid()
+    local last
+    for playerName, bid in pairs(AuctionFunctions.BidTable) do
+        last = bid
+        if playerName == LocalPlayer.Name then
+            last = nil
+        end
+    end
+    return bid
+end
+
