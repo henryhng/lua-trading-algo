@@ -340,7 +340,7 @@ end
 
 local function getTotalAmountAbleToPutIn(sortedItems, n, maxJackpotPrice)
     local sol
-    if quicksearch ~= false then
+    if quicksearch then
         sol = NSumClosestLib.QuickNSumClosest(sortedItems, n, maxJackpotPrice)
     else
         sol = NSumClosestLib.NSumClosest(sortedItems, n, maxJackpotPrice)
