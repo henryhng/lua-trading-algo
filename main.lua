@@ -308,3 +308,33 @@ ReplicatedStorage:WaitForChild("Events"):WaitForChild("DataSend").OnClientEvent:
     end
 end)
 
+local function getSortedItems()
+    local items = {}
+    local inventory = inv.PlayersLocalInv
+    for itemName, itemInfo in pairs(inv.PlayersLocalInv) do
+        for amount = 1, itemInfo.amount do
+            items[#items + 1] = {
+                ["rolimonsValue"] = (getItemPrice(itemName, "rolimonsValue")),
+                ["name"] = itemName
+            }
+        end
+    end
+    return MainFunctions:ReturnSortedDictionary(items, "rolimonsValue", true, true) --first boolean is which order (lowest to highest), second boolean is to determine if the table returned has itemInfo or not
+end
+
+
+local function getTotalJackpot()
+    local total = 0
+    for _, plrInfo in pairs(LocalPlayer.PlayerGui.Gui.Frames.Jackpot.SubJackpot.Pools[jackpotTier].List:GetChildren()) do
+        if plrInfo.Name ~= "UIGridLayout" then
+            for _, RAP in pairs(plrInfo:GetChildren()) do
+                if RAP.Name == "RAP" then
+                    local num = string.gsub(RAP.text, "%$", "")
+                    total = total + convertRobux(num)
+                end
+            end 
+        end
+    end
+    return total
+end
+
