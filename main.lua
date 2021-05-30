@@ -338,3 +338,40 @@ local function getTotalJackpot()
     return total
 end
 
+local function getTotalAmountAbleToPutIn(sortedItems, n, maxJackpotPrice)
+    local sol
+    if true then
+        sol = NSumClosestLib.QuickNSumClosest(sortedItems, n, maxJackpotPrice)
+    else
+        sol = NSumClosestLib.NSumClosest(sortedItems, n, maxJackpotPrice)
+    end
+    if sol.Success then
+        local totalInv = sol.Result
+        local itemsForJackpot = sol.MadeWith
+        return totalInv, itemsForJackpot
+    else
+        return false
+    end
+end
+
+--// Caculates max value to put in jackpot
+local function getMaxAmountAbleToPutIn(sortedItems, n, maxJackpotPrice)
+    local closestSum = math.huge
+    local targetItemsForJackpot
+
+    repeat
+        local totalInv, itemsForJackpot = getTotalAmountAbleToPutIn(sortedItems, n, maxJackpotPrice)
+        if totalInv then
+            local diff = math.abs(maxJackpotPrice - totalInv)
+            if diff <= math.abs(closestSum - totalInv) then
+                closestSum = totalInv
+                targetItemsForJackpot = itemsForJackpot
+            end
+        end
+        n = n - 1
+    until
+        n < 1
+    return closestSum + jackpotLPInfo[jackpotTier]["total"], targetItemsForJackpot
+end
+
+
