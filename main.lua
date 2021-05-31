@@ -456,7 +456,7 @@ auctionCountdown:GetPropertyChangedSignal("Text"):Connect(function()
         local value = getItemPrice(itemName, "rolimonsValue")
         local topBid = getTopAuctionBid()
         if not topBid then
-            bidAuction(value * .5)
+            bidAuction(value * .55)
         elseif topBid/value <= maxPercentOfValueToBid then
             bidAuction(topBid + 1e-307) --smallest fucking number lmao
         end
