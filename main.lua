@@ -488,7 +488,7 @@ spawn(function()
         spawn(function()
             local caseName = getHighestValueBuyableCase()
             if autobuy then --and caseName then
-                print(caseName)
+                --print(caseName)
                 OpenCaseRemote:InvokeServer(caseName)
             end
         end)
