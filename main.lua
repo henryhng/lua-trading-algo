@@ -463,3 +463,23 @@ auctionCountdown:GetPropertyChangedSignal("Text"):Connect(function()
     end
 end)
 
+spawn(function()
+    while true do
+        if autoclick and not buyingCase then
+            ClickRemote:FireServer()
+        end
+        wait(.1)
+    end
+end)
+
+spawn(function()
+    while true do
+        if autoupgrade and not buyingCase then
+            spawn(function()
+                UpgradeClickRemote:InvokeServer("Upgrade")
+            end)
+        end
+        wait()
+    end
+end)
+
