@@ -519,3 +519,29 @@ end
 local lib = loadstring(readfile('uwuware-ui.lua'))()
 local window = lib:CreateWindow('GUI Helper for Trade Tower!')
 
+window:AddToggle({text = 'Auto buy', state = autobuy, callback = function(v) 
+    autobuy = v; 
+end})
+
+
+local autobuyoptions = window:AddFolder("auto buy options")
+autobuyoptions:AddList({text = 'lowest cost case to autobuy', value = caseNames[1], values = caseNames, callback = function(v) lowestCaseToAutoBuy = v end})
+autobuyoptions:AddList({text = 'highest cost case to autobuy', value = caseNames[#caseNames], values = caseNames, callback = function(v) highestCaseToAutoBuy = v end})
+
+window:AddToggle({text = 'Auto sell', state = autosell, callback = function(v) 
+    autosell = v;
+    sellCurrentItems()
+end})
+
+local autoselloptions = window:AddFolder("auto sell options")
+
+autoselloptions:AddSlider({text = 'Max price to autosell', value = 50000, min = 0, max = 50000, float = 1000, dual = true, callback = function(v)
+    maxPrice = v
+    sellCurrentItems()
+end})
+autoselloptions:AddToggle({text = 'pure rap only', state = pureraponly, callback = function(v) 
+    pureraponly = v;
+    sellCurrentItems()
+end})
+autoselloptions:AddLabel({text = "quicksells if rap = value"})
+
