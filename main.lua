@@ -447,3 +447,19 @@ local function getTopAuctionBid()
     return bid
 end
 
+auctionCountdown:GetPropertyChangedSignal("Text"):Connect(function()
+    local countdownText = auctionCountdown.Text
+    local timeLeft = string.match(countdownText:lower(), "win") ~= "win" and string.gsub(countdownText, "%D", "")
+    if autobidtoauction and timeLeft == "1" then
+        wait(autoAuctionWaitTime)
+        local itemName = string.match(auctionHeader.Text, "%(.*%)"):gsub("[%(%)]","")
+        local value = getItemPrice(itemName, "rolimonsValue")
+        local topBid = getTopAuctionBid()
+        if not topBid then
+            bidAuction(value * .5)
+        elseif topBid/value <= maxPercentOfValueToBid then
+            bidAuction(topBid + 1e-307) --smallest fucking number lmao
+        end
+    end
+end)
+
