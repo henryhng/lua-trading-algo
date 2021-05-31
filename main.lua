@@ -565,3 +565,28 @@ window:AddButton({text = 'copy discord link', callback = function()
 end})
 
 
+local window2 = lib:CreateWindow('AUTOJACKPOT')
+window2:AddLabel({text = "AUTOJP AT YOUR OWN RISK."})
+
+window2:AddToggle({text = 'Auto jackpot', state = autojackpot, callback = function(v) 
+    autojackpot = v; 
+end})
+
+local autojackpotoptions = window2:AddFolder("auto jackpot options")
+autojackpotoptions:AddToggle({text = 'Quick search', state = quicksearch, callback = function(v) 
+    quicksearch = v; 
+end})
+--autojackpotoptions:AddLabel({text = "quick s. may not be accurate"})
+autojackpotoptions:AddList({text = 'jackpot tier', state = jackpotTierString, value = "1 (250k Cap)", values = {"1 (250k Cap)", "2 (5M Cap)", "3 (INF Cap)"}, callback = function(jackpotTierString)
+    jackpotTier = tonumber(jackpotTierString:sub(1, 1))
+end})
+autojackpotoptions:AddSlider({text = 'min jackpot chance', value = 95, min = 1, max = 100, callback = function(v)
+    minJackpotChance = v
+end})
+
+autojackpotoptions:AddSlider({text = 'waitTime', value = .9, min = 0, max = 1, float = .01, callback = function(v)
+    waitTime = v
+end})
+autojackpotoptions:AddLabel({text = "Waits x sec. from 1 sec"})
+
+
