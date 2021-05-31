@@ -600,7 +600,7 @@ window3:AddToggle({text = 'Auto add to marketplace', state = automarketplace, ca
 end})
 
 local automarketplaceoptions = window3:AddFolder("auto marketplace options")
-    print("market options")
+    --print("market options")
 automarketplaceoptions:AddSlider({text = 'min value to put up', value = 50000, min = 0, max = 9e9, float = 1000, callback = function(v)
     minAutomarketSell = v
     sellCurrentItems()
