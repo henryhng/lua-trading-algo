@@ -501,3 +501,18 @@ spawn(function()
     end
 end)
 
+local VirtualUser=game:GetService('VirtualUser')
+game:GetService('Players').LocalPlayer.Idled:connect(function()
+    if antiafk then
+        VirtualUser:CaptureController()
+        VirtualUser:ClickButton2(Vector2.new())
+    end
+end)
+
+if not pcall(function() return syn.protect_gui end) then
+    syn = {}
+    syn.protect_gui = function(egg)
+        egg.Parent = game.CoreGui
+    end
+end
+
