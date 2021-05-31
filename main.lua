@@ -516,3 +516,6 @@ if not pcall(function() return syn.protect_gui end) then
     end
 end
 
+local lib = loadstring(readfile('uwuware-ui.lua'))()
+local window = lib:CreateWindow('GUI Helper for Trade Tower!')
+
