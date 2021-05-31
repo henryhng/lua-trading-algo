@@ -590,3 +590,33 @@ end})
 autojackpotoptions:AddLabel({text = "Waits x sec. from 1 sec"})
 
 
+local window3 = lib:CreateWindow('AUTOMARKETPLACE')
+window3:AddLabel({text = "AUTOMP AT YOUR OWN RISK."})
+window3:AddLabel({text = "AUTOMP MAY BE BUGGY."})
+
+window3:AddToggle({text = 'Auto add to marketplace', state = automarketplace, callback = function(v) 
+    automarketplace = v;
+    sellCurrentItems()
+end})
+
+local automarketplaceoptions = window3:AddFolder("auto marketplace options")
+    print("market options")
+automarketplaceoptions:AddSlider({text = 'min value to put up', value = 50000, min = 0, max = 9e9, float = 1000, callback = function(v)
+    minAutomarketSell = v
+    sellCurrentItems()
+end})
+automarketplaceoptions:AddSlider({text = 'max value to put up', value = 9e9, min = 0, max = 9e9, float = 1000, callback = function(v)
+    maxAutomarketSell = v
+    sellCurrentItems()
+end})
+automarketplaceoptions:AddSlider({text = 'percent of value to sell', value = 104, min = 10, max = 500, float = 1, callback = function(v)
+    percentToMarketSell = v/100
+end})
+automarketplaceoptions:AddLabel({text = "warning: it will do value of ur item"})
+automarketplaceoptions:AddLabel({text = "multiplied by percentage/100"})
+
+window3:AddButton({text = 'remove ur items from market', callback = function()
+    removeAllFromMarketPlace()
+end})
+
+
