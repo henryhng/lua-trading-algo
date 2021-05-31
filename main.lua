@@ -576,7 +576,7 @@ local autojackpotoptions = window2:AddFolder("auto jackpot options")
 autojackpotoptions:AddToggle({text = 'Quick search', state = quicksearch, callback = function(v) 
     quicksearch = v; 
 end})
---autojackpotoptions:AddLabel({text = "quick s. may not be accurate"})
+autojackpotoptions:AddLabel({text = "quick s. may not be accurate"})
 autojackpotoptions:AddList({text = 'jackpot tier', state = jackpotTierString, value = "1 (250k Cap)", values = {"1 (250k Cap)", "2 (5M Cap)", "3 (INF Cap)"}, callback = function(jackpotTierString)
     jackpotTier = tonumber(jackpotTierString:sub(1, 1))
 end})
