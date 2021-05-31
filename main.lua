@@ -468,7 +468,7 @@ spawn(function()
         if autoclick and not buyingCase then
             ClickRemote:FireServer()
         end
-        wait(.1)
+        wait(.03)
     end
 end)
 
