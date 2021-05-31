@@ -465,7 +465,7 @@ end)
 
 spawn(function()
     while true do
-        if autoclick and not buyingCase then
+        if autoclick then --and not buyingCase then
             ClickRemote:FireServer()
         end
         wait()
@@ -474,7 +474,7 @@ end)
 
 spawn(function()
     while true do
-        if autoupgrade and not buyingCase then
+        if autoupgrade then --and not buyingCase then
             spawn(function()
                 UpgradeClickRemote:InvokeServer("Upgrade")
             end)
