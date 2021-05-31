@@ -545,3 +545,23 @@ autoselloptions:AddToggle({text = 'pure rap only', state = pureraponly, callback
 end})
 autoselloptions:AddLabel({text = "quicksells if rap = value"})
 
+window:AddToggle({text = 'Auto click', state = autoclick, callback = function(v) 
+    autoclick = v; 
+end})
+
+window:AddToggle({text = 'Auto upgrade clicks', state = autoupgrade, callback = function(v) 
+    autoupgrade = v; 
+end})
+
+--// Anti afk UI
+window:AddToggle({text = 'Anti Afk', state = antiafk, callback = function(v) 
+    antiafk = v; 
+end})
+
+--// join discord ui
+window:AddButton({text = 'copy discord link', callback = function()
+    copyDiscord()
+    sendNotification("discord link copied", "welcome aboard :)")
+end})
+
+
