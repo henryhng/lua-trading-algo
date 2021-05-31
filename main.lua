@@ -620,3 +620,23 @@ window3:AddButton({text = 'remove ur items from market', callback = function()
 end})
 
 
+local window4 = lib:CreateWindow('Auto auctionbid')
+window4:AddLabel({text = "AUTOBID IS STILL IN TESTING"})
+window4:AddLabel({text = "Min. % of value is 60%"})
+
+window4:AddToggle({text = 'Auto bid to auction', state = autobidtoauction, callback = function(v) 
+    autobidtoauction = v;
+end})
+
+local autoauctionbid = window4:AddFolder("auto auctionbid options")
+autoauctionbid:AddSlider({text = 'max % of value to bid', value = 70, min = 60, max = 200, float = 1, callback = function(v)
+    maxPercentOfValueToBid = v/100
+end})
+autoauctionbid:AddSlider({text = 'waitTime', value = .9, min = 0, max = 1, float = .01, callback = function(v)
+    autoAuctionWaitTime = v
+end})
+autoauctionbid:AddLabel({text = "Waits x sec. from 1 sec"})
+
+lib:Init()
+
+warn("AriWare on Top")
